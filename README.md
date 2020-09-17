@@ -5,7 +5,7 @@ Architect is a template project
 ## Roadmap
 
 - [x] N-Tier Architecture
-- [ ] .editorconfig
+- [x] .editorconfig
 - [ ] Auto Git Versioning
 - [ ] Logging
 - [ ] Entity Framework Core
