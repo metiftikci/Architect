@@ -1,5 +1,7 @@
+using Architect.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,11 @@ namespace Architect.Web
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
+            });
+
+            services.AddDbContext<ArchitectDbContext>(optionsBuilder =>
+            {
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Architect"));
             });
         }
 
@@ -61,6 +68,10 @@ namespace Architect.Web
             {
                 spa.Options.SourcePath = "ClientApp";
             });
+
+            using var scope = app.ApplicationServices.CreateScope();
+            using var dbContext = scope.ServiceProvider.GetRequiredService<ArchitectDbContext>();
+            dbContext.Database.EnsureCreated();
         }
     }
 }
