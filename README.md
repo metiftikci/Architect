@@ -7,7 +7,7 @@ Architect is a template project
 - [x] N-Tier Architecture
 - [x] .editorconfig
 - [x] Auto Git Versioning
-- [ ] Logging
+- [x] Logging
 - [ ] Entity Framework Core
 - [ ] Repositories
 - [ ] Services
