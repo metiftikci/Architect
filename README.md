@@ -4,7 +4,7 @@ Architect is a template project
 
 ## Roadmap
 
-- [ ] N-Tier Architecture
+- [x] N-Tier Architecture
 - [ ] .editorconfig
 - [ ] Auto Git Versioning
 - [ ] Logging
