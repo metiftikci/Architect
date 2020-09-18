@@ -13,7 +13,11 @@ Architect is a template project
 - [x] Services
 - [x] JWT Authentication
 - [x] Swagger
-- [ ] Unit Tests
+- [x] Unit Tests
 - [ ] Integration Tests
 - [ ] React (TypeScript & Yarn) Project
 - [ ] TypeScript Model Generator
+
+## References
+
+- Test framework: [xUnit](https://xunit.net/#documentation)
