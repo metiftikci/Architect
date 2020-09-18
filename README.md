@@ -12,7 +12,7 @@ Architect is a template project
 - [x] Repositories
 - [x] Services
 - [x] JWT Authentication
-- [ ] Swagger
+- [x] Swagger
 - [ ] Unit Tests
 - [ ] Integration Tests
 - [ ] React (TypeScript & Yarn) Project

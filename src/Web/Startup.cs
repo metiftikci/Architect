@@ -40,6 +40,8 @@ namespace Architect.Web
 
             AuthStartup.AddAuthentication(services);
 
+            SwaggerStartup.AddSwaggerService(services);
+
             services.AddDbContext<ArchitectDbContext>(optionsBuilder =>
             {
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Architect"));
@@ -77,6 +79,8 @@ namespace Architect.Web
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+
+            SwaggerStartup.UseSwagger(app);
 
             app.UseSpa(spa =>
             {
