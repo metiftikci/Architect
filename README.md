@@ -9,7 +9,7 @@ Architect is a template project
 - [x] Auto Git Versioning
 - [x] Logging
 - [x] Entity Framework Core
-- [ ] Repositories
+- [x] Repositories
 - [ ] Services
 - [ ] JWT Authentication
 - [ ] Swagger

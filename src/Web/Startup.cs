@@ -1,4 +1,6 @@
+using Architect.ApplicationCore.Repositories;
 using Architect.Infrastructure.Data;
+using Architect.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +37,8 @@ namespace Architect.Web
             {
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("Architect"));
             });
+
+            services.AddTransient<IRepositoryUnit, RepositoryUnit>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
