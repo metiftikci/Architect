@@ -3,6 +3,7 @@ using Architect.ApplicationCore.Services;
 using Architect.Infrastructure.Data;
 using Architect.Infrastructure.Repositories;
 using Architect.Infrastructure.Services;
+using Architect.Web.AppStart;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,8 @@ namespace Architect.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Settings.Instance = Configuration.Get<Settings>();
         }
 
         public IConfiguration Configuration { get; }
@@ -34,6 +37,8 @@ namespace Architect.Web
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            AuthStartup.AddAuthentication(services);
 
             services.AddDbContext<ArchitectDbContext>(optionsBuilder =>
             {
@@ -63,6 +68,8 @@ namespace Architect.Web
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            AuthStartup.UseAuthentication(app);
 
             app.UseEndpoints(endpoints =>
             {
