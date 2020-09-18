@@ -10,7 +10,7 @@ Architect is a template project
 - [x] Logging
 - [x] Entity Framework Core
 - [x] Repositories
-- [ ] Services
+- [x] Services
 - [ ] JWT Authentication
 - [ ] Swagger
 - [ ] Unit Tests

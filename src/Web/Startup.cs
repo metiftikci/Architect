@@ -1,6 +1,8 @@
 using Architect.ApplicationCore.Repositories;
+using Architect.ApplicationCore.Services;
 using Architect.Infrastructure.Data;
 using Architect.Infrastructure.Repositories;
+using Architect.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +41,7 @@ namespace Architect.Web
             });
 
             services.AddTransient<IRepositoryUnit, RepositoryUnit>();
+            services.AddTransient<IServiceUnit, ServiceUnit>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
