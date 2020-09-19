@@ -10,6 +10,14 @@ namespace Architect.Web.Models
         public string Username { get; set; }
         public string Token { get; set; }
 
+        public AuthenticateResponse()
+        {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Username = string.Empty;
+            Token = string.Empty;
+        }
+
         public AuthenticateResponse(User user, string token)
         {
             Id = user.Id;
