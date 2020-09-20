@@ -6,30 +6,26 @@ namespace Architect.ApplicationCore.Models
     {
         public int Id { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string Username { get; set; }
 
-        [Required]
         [MaxLength(100)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [MaxLength(50)]
         [DataType(DataType.EmailAddress)]
-        public string EmailAddress { get; set; }
+        public string? EmailAddress { get; set; }
 
         [MaxLength(25)]
         [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         public bool Active { get; set; }
 
