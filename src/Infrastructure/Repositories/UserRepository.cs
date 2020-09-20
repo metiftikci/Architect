@@ -12,7 +12,7 @@ namespace Architect.Infrastructure.Repositories
 
         public async Task<User?> FindByUsernameAsync(string username)
         {
-            return await DbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
+            return await DbContext.Users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Username == username);
         }
     }
 }

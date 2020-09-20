@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Architect.ApplicationCore.Models
@@ -29,6 +30,10 @@ namespace Architect.ApplicationCore.Models
 
         public bool Active { get; set; }
 
+        // NAVIGATIONS
+
+        public List<UserRole> Roles { get; set; }
+
         public User()
         {
             FirstName = string.Empty;
@@ -37,6 +42,8 @@ namespace Architect.ApplicationCore.Models
             Password = string.Empty;
             EmailAddress = string.Empty;
             PhoneNumber = string.Empty;
+
+            Roles = new List<UserRole>();
         }
     }
 }

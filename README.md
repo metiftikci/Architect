@@ -12,6 +12,7 @@ Architect is a template project
 - [x] Repositories
 - [x] Services
 - [x] JWT Authentication
+  - [x] Roles
 - [x] Swagger
 - [x] Unit Tests
 - [x] Integration Tests

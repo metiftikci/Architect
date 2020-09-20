@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -28,17 +29,24 @@ namespace Architect.Web.Utils
                 throw new InvalidOperationException($"User password is incorrect. Username: {model.Username}");
             }
 
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username)
+            };
+
+            foreach (var userRole in user.Roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole.Role));
+            }
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Instance.JwtSecret);
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Audience = Settings.Instance.JwtAudience,
                 Issuer = Settings.Instance.JwtIssuer,
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Username)
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(Settings.Instance.JwtExpiresMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
