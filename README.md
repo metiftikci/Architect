@@ -18,7 +18,3 @@ Architect is a template project
 - [x] Integration Tests
 - [ ] React (TypeScript & Yarn) Project
 - [ ] TypeScript Model Generator
-
-## References
-
-- Test framework: [xUnit](https://xunit.net/#documentation)
