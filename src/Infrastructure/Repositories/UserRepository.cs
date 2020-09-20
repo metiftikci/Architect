@@ -10,7 +10,7 @@ namespace Architect.Infrastructure.Repositories
     {
         public UserRepository(ArchitectDbContext dbContext) : base(dbContext) { }
 
-        public async Task<User> FindByUsernameAsync(string username)
+        public async Task<User?> FindByUsernameAsync(string username)
         {
             return await DbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
         }

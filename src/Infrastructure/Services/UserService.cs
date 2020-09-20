@@ -9,6 +9,6 @@ namespace Architect.Infrastructure.Services
     {
         public UserService(IServiceUnit serviceUnit, IRepositoryUnit repositoryUnit) : base(serviceUnit, repositoryUnit) { }
 
-        public async Task<User> FindByUsernameAsync(string username) => await RepositoryUnit.UserRepository.FindByUsernameAsync(username);
+        public async Task<User?> FindByUsernameAsync(string username) => await RepositoryUnit.UserRepository.FindByUsernameAsync(username);
     }
 }

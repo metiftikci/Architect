@@ -5,6 +5,6 @@ namespace Architect.ApplicationCore.Services
 {
     public interface IUserService
     {
-        Task<User> FindByUsernameAsync(string username);
+        Task<User?> FindByUsernameAsync(string username);
     }
 }
