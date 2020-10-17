@@ -15,7 +15,7 @@ namespace Architect.IntegrationTests.Web.Controllers
     {
         protected readonly TestWebApplicationFactory WebApplicationFactory;
 
-        public ControllerTestsBase(TestWebApplicationFactory webApplicationFactory)
+        protected ControllerTestsBase(TestWebApplicationFactory webApplicationFactory)
         {
             WebApplicationFactory = webApplicationFactory;
 

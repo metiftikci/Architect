@@ -11,7 +11,7 @@ namespace Architect.Infrastructure.Repositories
     {
         protected readonly ArchitectDbContext DbContext;
 
-        public Repository(ArchitectDbContext dbContext) => DbContext = dbContext;
+        protected Repository(ArchitectDbContext dbContext) => DbContext = dbContext;
 
         public async Task<List<TEntity>> ToListAsync() => await DbContext.Set<TEntity>().ToListAsync();
         public async Task<TEntity> FindAsync(params object[] keyValues) => await DbContext.Set<TEntity>().FindAsync(keyValues);

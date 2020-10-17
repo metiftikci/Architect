@@ -8,7 +8,7 @@ namespace Architect.Infrastructure.Services
         protected readonly IServiceUnit ServiceUnit;
         protected readonly IRepositoryUnit RepositoryUnit;
 
-        public ServiceBase(IServiceUnit serviceUnit, IRepositoryUnit repositoryUnit)
+        protected ServiceBase(IServiceUnit serviceUnit, IRepositoryUnit repositoryUnit)
             => (ServiceUnit, RepositoryUnit) = (serviceUnit, repositoryUnit);
     }
 }
