@@ -7,6 +7,8 @@ namespace Architect.ApplicationCore.Repositories
     {
         IUserRepository UserRepository { get; }
 
+        TRepository GetRepository<TRepository>();
+
         IDbContextTransaction BeginTransaction();
         Task<IDbContextTransaction> BeginTransactionAsync();
 

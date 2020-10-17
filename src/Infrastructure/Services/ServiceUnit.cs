@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
+using System;
+using System.Linq;
 using Architect.ApplicationCore.Repositories;
 using Architect.ApplicationCore.Services;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Architect.Infrastructure.Services
 {
@@ -13,10 +13,15 @@ namespace Architect.Infrastructure.Services
 
         public ServiceUnit(IRepositoryUnit repositoryUnit) => RepositoryUnit = repositoryUnit;
 
-        public IDbContextTransaction BeginTransaction() => RepositoryUnit.BeginTransaction();
-        public async Task<IDbContextTransaction> BeginTransactionAsync() => await RepositoryUnit.BeginTransactionAsync();
+        public TService GetService<TService>()
+        {
+            var serviceType = typeof(TService);
 
-        public int SaveChanges() => RepositoryUnit.SaveChanges();
-        public async Task<int> SaveChangesAsync() => await RepositoryUnit.SaveChangesAsync();
+            var property = GetType().GetProperties().Where(x => serviceType.IsAssignableFrom(x.PropertyType)).FirstOrDefault();
+
+            if (property == null) throw new InvalidOperationException($"{serviceType.Name} service is not supported");
+
+            return (TService)property.GetValue(this);
+        }
     }
 }

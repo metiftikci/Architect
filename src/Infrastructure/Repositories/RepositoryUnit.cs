@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Architect.ApplicationCore.Repositories;
 using Architect.Infrastructure.Data;
@@ -12,6 +14,17 @@ namespace Architect.Infrastructure.Repositories
         protected ArchitectDbContext DbContext;
 
         public RepositoryUnit(ArchitectDbContext dbContext) => DbContext = dbContext;
+
+        public TRepository GetRepository<TRepository>()
+        {
+            var repositoryType = typeof(TRepository);
+
+            var property = GetType().GetProperties().Where(x => repositoryType.IsAssignableFrom(x.PropertyType)).FirstOrDefault();
+
+            if (property == null) throw new InvalidOperationException($"{repositoryType.Name} repository is not supported");
+
+            return (TRepository)property.GetValue(this);
+        }
 
         public IDbContextTransaction BeginTransaction() => DbContext.Database.BeginTransaction();
         public async Task<IDbContextTransaction> BeginTransactionAsync() => await DbContext.Database.BeginTransactionAsync();
