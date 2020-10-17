@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Architect.ApplicationCore.Models
 {
-    public class User
+    public class User : IEntity
     {
         public int Id { get; set; }
 
