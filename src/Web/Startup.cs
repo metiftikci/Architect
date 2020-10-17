@@ -30,7 +30,7 @@ namespace Architect.Web
         {
             services.AddLogging(builder => builder.AddFile("Logs/Architect-{Date}.txt"));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
