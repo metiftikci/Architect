@@ -8,6 +8,7 @@ namespace Architect.Infrastructure.Services
     public class ServiceUnit : IServiceUnit
     {
         public IUserService UserService => new UserService(this, RepositoryUnit);
+        public IRecordService RecordService => new RecordService(this, RepositoryUnit);
 
         protected readonly IRepositoryUnit RepositoryUnit;
 

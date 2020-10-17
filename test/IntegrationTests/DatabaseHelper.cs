@@ -8,14 +8,10 @@ namespace Architect.IntegrationTests
     {
         public static void Seed(ArchitectDbContext dbContext)
         {
-            dbContext.AddRange(GetUsers());
+            dbContext.Add(new User() { FirstName = "Name", LastName = "Surname", Username = "admin", Password = "123456" });
+            dbContext.Add(new Record() { Description = "Record 1" });
 
             dbContext.SaveChanges();
         }
-
-        private static List<User> GetUsers() => new List<User>()
-        {
-            new User() { FirstName = "Name", LastName = "Surname", Username = "admin", Password = "123456" }
-        };
     }
 }

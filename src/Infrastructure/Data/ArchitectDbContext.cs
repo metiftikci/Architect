@@ -7,6 +7,7 @@ namespace Architect.Infrastructure.Data
     {
         public DbSet<User> Users => Set<User>();
         public DbSet<UserRole> UserRoles => Set<UserRole>();
+        public DbSet<Record> Records => Set<Record>();
 
         public ArchitectDbContext(DbContextOptions<ArchitectDbContext> options) : base(options) { }
 

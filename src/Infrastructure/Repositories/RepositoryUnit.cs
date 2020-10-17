@@ -10,6 +10,7 @@ namespace Architect.Infrastructure.Repositories
     public class RepositoryUnit : IRepositoryUnit
     {
         public IUserRepository UserRepository => new UserRepository(DbContext);
+        public IRecordRepository RecordRepository => new RecordRepository(DbContext);
 
         protected ArchitectDbContext DbContext;
 
