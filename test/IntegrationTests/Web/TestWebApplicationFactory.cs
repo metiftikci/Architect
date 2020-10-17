@@ -19,15 +19,6 @@ namespace Architect.IntegrationTests.Web
                 services.Remove(dbContextDescriptor);
 
                 services.AddDbContext<ArchitectDbContext>(options => options.UseInMemoryDatabase("InMemoryDb"));
-
-                var serviceProvider = services.BuildServiceProvider();
-
-                using var scope = serviceProvider.CreateScope();
-                var db = scope.ServiceProvider.GetRequiredService<ArchitectDbContext>();
-
-                db.Database.EnsureCreated();
-
-                DatabaseHelper.Seed(db);
             });
         }
     }

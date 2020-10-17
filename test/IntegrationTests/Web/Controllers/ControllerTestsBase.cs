@@ -3,21 +3,31 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Architect.Infrastructure.Data;
 using Architect.Web.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Architect.IntegrationTests.Web.Controllers
 {
+    [Collection("Database Sequential Tests")]
     public abstract class ControllerTestsBase : IClassFixture<TestWebApplicationFactory>
     {
         protected readonly TestWebApplicationFactory WebApplicationFactory;
 
-        public ControllerTestsBase(TestWebApplicationFactory webApplicationFactory) => WebApplicationFactory = webApplicationFactory;
+        public ControllerTestsBase(TestWebApplicationFactory webApplicationFactory)
+        {
+            WebApplicationFactory = webApplicationFactory;
+
+            using var scope = WebApplicationFactory.Server.Services.CreateScope();
+            var database = scope.ServiceProvider.GetRequiredService<ArchitectDbContext>();
+            database.Database.EnsureDeleted();
+            database.Database.EnsureCreated();
+            DatabaseHelper.Seed(database);
+        }
 
         protected HttpClient CreateClient()
-        {
-            return WebApplicationFactory.CreateClient();
-        }
+            => WebApplicationFactory.CreateClient();
 
         protected async Task<HttpClient> CreateAuthenticatedClientAsync()
         {
@@ -38,6 +48,19 @@ namespace Architect.IntegrationTests.Web.Controllers
             return client;
         }
 
+        protected async Task<TValue> SendAndDeserializeAsync<TValue>(string uri)
+            => await SendAndDeserializeAsync<TValue>(uri, HttpMethod.Get, null);
+
+        protected async Task<TValue> SendAndDeserializeAsync<TValue>(string uri, HttpMethod method)
+            => await SendAndDeserializeAsync<TValue>(uri, method, null);
+
+        protected async Task<TValue> SendAndDeserializeAsync<TValue>(string uri, HttpMethod method, object body)
+        {
+            var client = CreateClient();
+
+            return await SendAndDeserializeAsync<TValue>(client, uri, method, body);
+        }
+
         protected async Task<TValue> SendAsAuthenticatedAndDeserializeAsync<TValue>(string uri)
             => await SendAsAuthenticatedAndDeserializeAsync<TValue>(uri, HttpMethod.Get, null);
 
@@ -48,9 +71,16 @@ namespace Architect.IntegrationTests.Web.Controllers
         {
             var client = await CreateAuthenticatedClientAsync();
 
+            return await SendAndDeserializeAsync<TValue>(client, uri, method, body);
+        }
+
+        private async Task<TValue> SendAndDeserializeAsync<TValue>(HttpClient client, string uri, HttpMethod method, object body)
+        {
             var content = body == null ? null : JsonContent(body);
 
             var response = await client.SendAsync(new HttpRequestMessage(method, uri) { Content = content });
+
+            if (typeof(TValue) == typeof(int)) return (TValue)(object)response.StatusCode;
 
             response.EnsureSuccessStatusCode();
 
